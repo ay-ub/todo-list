@@ -1,50 +1,55 @@
-# React + TypeScript + Vite
+# Todo List App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a simple Todo List application built using **React.js** with **TypeScript** and **ShadCN**. The app allows users to manage their tasks by creating, deleting, marking them as completed or not completed, and searching for specific tasks. The todos are categorized into two sections: "Not Completed" and "Completed."
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Add new todos
+- Delete todos
+- Mark todos as completed or not completed
+- Search todos by title or description
+- Display todos in two sections: "Not Completed" and "Completed"
 
-## Expanding the ESLint configuration
+## Demo
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+![App Screenshot](./screenshot.png)
 
-- Configure the top-level `parserOptions` property like this:
+## Tech Stack
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- **React.js**: For building the UI.
+- **TypeScript**: Provides static type checking.
+- **ShadCN**: Custom UI components and styling framework.
+
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/ay-ub/todo-list.git
+   ```
+
+2. Navigate to the project directory:
+
+```bash
+  cd todo-list
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+3. Install dependencies using npm or pnpm:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+```bash
+  npm i
+  #or using pnpm
+  pnpm i
+```
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+4. Start the development server:
+
+```bash
+  pnpm run dev
+```
+
+5. Open your browser and go to:
+
+```bash
+  http://localhost:5173/
 ```
