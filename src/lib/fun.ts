@@ -15,6 +15,7 @@ const handleUpdateToDo = (value, setTodos, todos) => {
     if (todo.value === value) {
       return { ...todo, isCompleted: !todo.isCompleted };
     }
+    console.log(todo);
     return todo;
   });
   setTodos(newTodo);
