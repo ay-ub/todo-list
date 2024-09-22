@@ -12,7 +12,8 @@ This project is a simple Todo List application built using **React.js** with **T
 
 ## Demo
 
-![App Screenshot](./screenshot.png)
+![App Screenshot](./screen.png)
+![Delete task Screenshot](./delete-task.png)
 
 ## Tech Stack
 
