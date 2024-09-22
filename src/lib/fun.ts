@@ -1,5 +1,10 @@
 import { toast } from "sonner";
-const handleCreateTodo = (input, setTodos, setInput, todos) => {
+const handleCreateTodo = (
+  input: any,
+  setTodos: any,
+  setInput: any,
+  todos: any
+) => {
   if (input.value) {
     setTodos([input, ...todos]);
     setInput({ value: "", isCompleted: false });
@@ -9,9 +14,9 @@ const handleCreateTodo = (input, setTodos, setInput, todos) => {
   }
 };
 
-const handleUpdateToDo = (value, setTodos, todos) => {
+const handleUpdateToDo = (value: any, setTodos: any, todos: any) => {
   let newTodo = [];
-  newTodo = todos.map((todo) => {
+  newTodo = todos.map((todo: any) => {
     if (todo.value === value) {
       return { ...todo, isCompleted: !todo.isCompleted };
     }
@@ -21,9 +26,9 @@ const handleUpdateToDo = (value, setTodos, todos) => {
   setTodos(newTodo);
   toast.success(`Todo Updated Successfully`);
 };
-const handleDeleteToDo = (value, setTodos, todos) => {
+const handleDeleteToDo = (value: any, setTodos: any, todos: any) => {
   let newTodo = [];
-  newTodo = todos.filter((todo) => todo.value !== value);
+  newTodo = todos.filter((todo: any) => todo.value !== value);
   setTodos(newTodo);
   toast.success("Todo Deleted Successfully");
 };

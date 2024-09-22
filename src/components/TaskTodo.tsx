@@ -11,7 +11,15 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Trash2 } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
-export default function TaskTodo({ todo, handleDeleteToDo, handleUpdateToDo }) {
+export default function TaskTodo({
+  todo,
+  handleDeleteToDo,
+  handleUpdateToDo,
+}: {
+  todo: any;
+  handleDeleteToDo: any;
+  handleUpdateToDo: any;
+}) {
   return (
     <div className='flex items-center justify-between w-full p-3 rounded-md'>
       <Checkbox
