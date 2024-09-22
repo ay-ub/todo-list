@@ -36,11 +36,11 @@ function App() {
   return (
     <div className='app select-none container px-3  min-h-screen  w-screen flex items-center justify-start flex-col gap-6'>
       <div
-        className='w-full md:w-1/2 flex flex-col gap-6 items-center justify-start  min-h-screen p-6 
+        className='w-full md:w-1/2 flex flex-col gap-6 items-center justify-start  min-h-screen py-6
       '
       >
         <div className='flex items-center justify-between w-full'>
-          <h1 className='text-2xl flex-1 w-full'>Todo App</h1>
+          <h1 className='text-2xl text-nowrap'>Todo App</h1>
 
           <SearchBar />
         </div>
