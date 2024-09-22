@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Trash2 } from "lucide-react";
 import {
@@ -27,7 +27,7 @@ function App() {
       value: string;
       isCompleted: boolean;
     }[]
-  >([]);
+  >(JSON.parse(localStorage.getItem("todos") || "[]"));
   const [input, setInput] = useState<{
     value: string;
     isCompleted: boolean;
@@ -69,6 +69,9 @@ function App() {
     toast.success("Todo Deleted Successfully");
   };
 
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
   return (
     <div className='app select-none container px-3  min-h-screen  w-screen flex items-center justify-start flex-col gap-6'>
       <div
