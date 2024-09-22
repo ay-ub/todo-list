@@ -1,7 +1,7 @@
 import { Search } from "lucide-react";
 import { useState } from "react";
 function SearchBar() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   return (
     <div className='flex rounded-full p-2 items-center bg-gray-100'>
       <input
