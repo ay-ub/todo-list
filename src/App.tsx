@@ -1,26 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
-import { Trash2 } from "lucide-react";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { Checkbox } from "@/components/ui/checkbox";
+
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Task from "@/components/Todo";
+import SearchBar from "./components/SearchBar";
+import {
+  handleCreateTodo,
+  handleUpdateToDo,
+  handleDeleteToDo,
+} from "./lib/fun";
 function App() {
   const [todos, setTodos] = useState<
     {
@@ -35,39 +29,6 @@ function App() {
     value: "",
     isCompleted: false,
   });
-  const handleCreateTodo = () => {
-    if (input.value) {
-      setTodos([input, ...todos]);
-      setInput({ value: "", isCompleted: false });
-      toast.success("Todo Added Successfully");
-    } else {
-      toast.error("Please enter a valid todo");
-    }
-  };
-
-  const handleUpdateToDo = (value: string) => {
-    let newTodo: {
-      value: string;
-      isCompleted: boolean;
-    }[] = [];
-    newTodo = todos.map((todo) => {
-      if (todo.value === value) {
-        return { ...todo, isCompleted: !todo.isCompleted };
-      }
-      return todo;
-    });
-    setTodos(newTodo);
-    toast.success(`Todo Updated Successfully`);
-  };
-  const handleDeleteToDo = (value: string) => {
-    let newTodo: {
-      value: string;
-      isCompleted: boolean;
-    }[] = [];
-    newTodo = todos.filter((todo) => todo.value !== value);
-    setTodos(newTodo);
-    toast.success("Todo Deleted Successfully");
-  };
 
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
@@ -80,10 +41,8 @@ function App() {
       >
         <div className='flex items-center justify-between w-full'>
           <h1 className='text-2xl flex-1 w-full'>Todo App</h1>
-          <Input
-            placeholder='Search Todos'
-            className='max-w-md px-4 py-2 text-base flex-1'
-          />
+
+          <SearchBar />
         </div>
         <div className='input-box flex items-center gap-3 w-full justify-center '>
           <Input
@@ -94,7 +53,12 @@ function App() {
               setInput({ value: e.target.value, isCompleted: false })
             }
           />
-          <Button className='p-2 ' onClick={handleCreateTodo}>
+          <Button
+            className='p-2 '
+            onClick={() => {
+              handleCreateTodo(input, setTodos, setInput, todos);
+            }}
+          >
             Add Todo
           </Button>
         </div>
@@ -115,43 +79,16 @@ function App() {
                     return !todo.isCompleted;
                   })
                   .map((todo, index) => (
-                    <div
+                    <Task
                       key={index}
-                      className='flex items-center justify-between w-full p-3 rounded-md'
-                    >
-                      <Checkbox
-                        checked={todo.isCompleted}
-                        onCheckedChange={() => handleUpdateToDo(todo.value)}
-                      />
-                      <p className='text-xl flex-1 px-3'>{todo.value}</p>
-                      <div className='flex items-center gap-3'>
-                        <AlertDialog>
-                          <AlertDialogTrigger>
-                            <Trash2 size={24} className='cursor-pointer' />
-                          </AlertDialogTrigger>
-                          <AlertDialogContent>
-                            <AlertDialogHeader>
-                              <AlertDialogTitle>
-                                Delete Todo: {todo.value}
-                              </AlertDialogTitle>
-                              <AlertDialogDescription>
-                                Are you sure you want to delete this todo?
-                              </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                              <AlertDialogCancel>Cancel</AlertDialogCancel>
-                              <AlertDialogAction
-                                onClick={() => {
-                                  handleDeleteToDo(todo.value);
-                                }}
-                              >
-                                Delete Todo
-                              </AlertDialogAction>
-                            </AlertDialogFooter>
-                          </AlertDialogContent>
-                        </AlertDialog>
-                      </div>
-                    </div>
+                      todo={todo}
+                      handleDeleteToDo={() => {
+                        handleDeleteToDo(todo.value, setTodos, todos);
+                      }}
+                      handleUpdateToDo={() => {
+                        handleUpdateToDo(todo.value, setTodos, todos);
+                      }}
+                    />
                   ))
               ) : (
                 <p className='text-base text-center'>
@@ -171,43 +108,16 @@ function App() {
                     return todo.isCompleted;
                   })
                   .map((todo, index) => (
-                    <div
+                    <Task
                       key={index}
-                      className='flex items-center justify-between w-full p-3 rounded-md'
-                    >
-                      <Checkbox
-                        checked={todo.isCompleted}
-                        onCheckedChange={() => handleUpdateToDo(todo.value)}
-                      />
-                      <p className='text-xl flex-1 px-3'>{todo.value}</p>
-                      <div className='flex items-center gap-3'>
-                        <AlertDialog>
-                          <AlertDialogTrigger>
-                            <Trash2 size={24} className='cursor-pointer' />
-                          </AlertDialogTrigger>
-                          <AlertDialogContent>
-                            <AlertDialogHeader>
-                              <AlertDialogTitle>
-                                Delete Todo: {todo.value}
-                              </AlertDialogTitle>
-                              <AlertDialogDescription>
-                                Are you sure you want to delete this todo?
-                              </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                              <AlertDialogCancel>Cancel</AlertDialogCancel>
-                              <AlertDialogAction
-                                onClick={() => {
-                                  handleDeleteToDo(todo.value);
-                                }}
-                              >
-                                Delete Todo
-                              </AlertDialogAction>
-                            </AlertDialogFooter>
-                          </AlertDialogContent>
-                        </AlertDialog>
-                      </div>
-                    </div>
+                      todo={todo}
+                      handleDeleteToDo={() => {
+                        handleDeleteToDo(todo.value, setTodos, todos);
+                      }}
+                      handleUpdateToDo={() => {
+                        handleUpdateToDo(todo.value, setTodos, todos);
+                      }}
+                    />
                   ))
               ) : (
                 <p className='text-base text-center'>
