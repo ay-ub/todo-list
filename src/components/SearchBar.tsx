@@ -3,7 +3,7 @@ import { useState } from "react";
 function SearchBar() {
   const [open, setOpen] = useState(false);
   return (
-    <div className='flex rounded-full p-2 items-center bg-gray-100'>
+    <div className='flex rounded-full p-2 items-center bg-gray-100 dark:bg-slate-800'>
       <input
         placeholder='Search Todos'
         className={`${

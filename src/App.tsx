@@ -15,6 +15,7 @@ import {
   handleDeleteToDo,
 } from "@/lib/fun";
 import TaskTodo from "@/components/TaskTodo";
+import { ModeToggle } from "./components/mode-toggle";
 function App() {
   const [todos, setTodos] = useState<
     {
@@ -40,9 +41,12 @@ function App() {
       '
       >
         <div className='flex items-center justify-between w-full'>
-          <h1 className='text-2xl text-nowrap'>Todo App</h1>
+          <h1 className='text-2xl text-nowrap '>Todo App</h1>
 
-          <SearchBar />
+          <div className='flex items-center gap-2'>
+            <SearchBar />
+            <ModeToggle />
+          </div>
         </div>
         <div className='input-box flex items-center gap-3 w-full justify-center '>
           <Input
