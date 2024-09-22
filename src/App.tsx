@@ -8,13 +8,13 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import Task from "@/components/Todo";
 import SearchBar from "./components/SearchBar";
 import {
   handleCreateTodo,
   handleUpdateToDo,
   handleDeleteToDo,
-} from "./lib/fun";
+} from "@/lib/fun";
+import TaskTodo from "@/components/TaskTodo";
 function App() {
   const [todos, setTodos] = useState<
     {
@@ -79,7 +79,7 @@ function App() {
                     return !todo.isCompleted;
                   })
                   .map((todo, index) => (
-                    <Task
+                    <TaskTodo
                       key={index}
                       todo={todo}
                       handleDeleteToDo={() => {
@@ -108,7 +108,7 @@ function App() {
                     return todo.isCompleted;
                   })
                   .map((todo, index) => (
-                    <Task
+                    <TaskTodo
                       key={index}
                       todo={todo}
                       handleDeleteToDo={() => {

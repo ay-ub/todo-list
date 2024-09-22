@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Trash2 } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
-export default function Task({ todo, handleDeleteToDo, handleUpdateToDo }) {
+export default function TaskTodo({ todo, handleDeleteToDo, handleUpdateToDo }) {
   return (
     <div className='flex items-center justify-between w-full p-3 rounded-md'>
       <Checkbox
@@ -28,7 +28,7 @@ export default function Task({ todo, handleDeleteToDo, handleUpdateToDo }) {
             <AlertDialogHeader>
               <AlertDialogTitle>Delete Todo: {todo.value}</AlertDialogTitle>
               <AlertDialogDescription>
-                Are you sure you want to delete this todo?
+                Are you sure you want to delete this todo? cannot be undone.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
