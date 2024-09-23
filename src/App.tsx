@@ -31,9 +31,22 @@ function App() {
     isCompleted: false,
   });
 
+  const [serch, setSearch] = useState<string>("");
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
+  // add event listener for keydown event to handle enter key press to add todo item to list of todos
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Enter") {
+        handleCreateTodo(input, setTodos, setInput, todos);
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [input, todos]);
   return (
     <div className='app select-none container px-3  min-h-screen  w-screen flex items-center justify-start flex-col gap-6'>
       <div
@@ -44,7 +57,7 @@ function App() {
           <h1 className='text-2xl text-nowrap '>Todo App</h1>
 
           <div className='flex items-center gap-2'>
-            <SearchBar />
+            <SearchBar serch={serch} setSearch={setSearch} />
             <ModeToggle />
           </div>
         </div>
@@ -66,71 +79,100 @@ function App() {
             Add Todo
           </Button>
         </div>
-        <Accordion
-          type='single'
-          collapsible
-          className='w-full'
-          defaultValue='item-1'
-        >
-          <AccordionItem value='item-1'>
-            <AccordionTrigger>Incomplete tasks</AccordionTrigger>
-            <AccordionContent>
-              {todos.filter((todo) => {
-                return !todo.isCompleted;
-              }).length > 0 ? (
-                todos
-                  .filter((todo) => {
-                    return !todo.isCompleted;
-                  })
-                  .map((todo, index) => (
-                    <TaskTodo
-                      key={index}
-                      todo={todo}
-                      handleDeleteToDo={() => {
-                        handleDeleteToDo(todo.value, setTodos, todos);
-                      }}
-                      handleUpdateToDo={() => {
-                        handleUpdateToDo(todo.value, setTodos, todos);
-                      }}
-                    />
-                  ))
-              ) : (
-                <p className='text-base text-center'>
-                  No Todos Found. Please add some todos to see them here.
-                </p>
-              )}
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value='item-2'>
-            <AccordionTrigger>Completed tasks</AccordionTrigger>
-            <AccordionContent>
-              {todos.filter((todo) => {
-                return todo.isCompleted;
-              }).length > 0 ? (
-                todos
-                  .filter((todo) => {
-                    return todo.isCompleted;
-                  })
-                  .map((todo, index) => (
-                    <TaskTodo
-                      key={index}
-                      todo={todo}
-                      handleDeleteToDo={() => {
-                        handleDeleteToDo(todo.value, setTodos, todos);
-                      }}
-                      handleUpdateToDo={() => {
-                        handleUpdateToDo(todo.value, setTodos, todos);
-                      }}
-                    />
-                  ))
-              ) : (
-                <p className='text-base text-center'>
-                  No Todos Found. Please add some todos to see them here.
-                </p>
-              )}
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
+        {serch.length > 0 ? (
+          <div className='w-full'>
+            {todos.filter((todo) => {
+              return todo.value.toLowerCase().includes(serch.toLowerCase());
+            }).length > 0 ? (
+              todos
+                .filter((todo) => {
+                  return todo.value.toLowerCase().includes(serch.toLowerCase());
+                })
+                .map((todo, index) => (
+                  <TaskTodo
+                    key={index}
+                    todo={todo}
+                    handleDeleteToDo={() => {
+                      handleDeleteToDo(todo.value, setTodos, todos);
+                    }}
+                    handleUpdateToDo={() => {
+                      handleUpdateToDo(todo.value, setTodos, todos);
+                    }}
+                  />
+                ))
+            ) : (
+              <p className='text-base text-center'>
+                No Todos Found. Please add some todos to see them here.
+              </p>
+            )}
+          </div>
+        ) : (
+          <Accordion
+            type='single'
+            collapsible
+            className='w-full'
+            defaultValue='item-1'
+          >
+            <AccordionItem value='item-1'>
+              <AccordionTrigger>Incomplete tasks</AccordionTrigger>
+              <AccordionContent>
+                {todos.filter((todo) => {
+                  return !todo.isCompleted;
+                }).length > 0 ? (
+                  todos
+                    .filter((todo) => {
+                      return !todo.isCompleted;
+                    })
+                    .map((todo, index) => (
+                      <TaskTodo
+                        key={index}
+                        todo={todo}
+                        handleDeleteToDo={() => {
+                          handleDeleteToDo(todo.value, setTodos, todos);
+                        }}
+                        handleUpdateToDo={() => {
+                          handleUpdateToDo(todo.value, setTodos, todos);
+                        }}
+                      />
+                    ))
+                ) : (
+                  <p className='text-base text-center'>
+                    No Todos Found. Please add some todos to see them here.
+                  </p>
+                )}
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value='item-2'>
+              <AccordionTrigger>Completed tasks</AccordionTrigger>
+              <AccordionContent>
+                {todos.filter((todo) => {
+                  return todo.isCompleted;
+                }).length > 0 ? (
+                  todos
+                    .filter((todo) => {
+                      return todo.isCompleted;
+                    })
+                    .map((todo, index) => (
+                      <TaskTodo
+                        key={index}
+                        todo={todo}
+                        handleDeleteToDo={() => {
+                          handleDeleteToDo(todo.value, setTodos, todos);
+                        }}
+                        handleUpdateToDo={() => {
+                          handleUpdateToDo(todo.value, setTodos, todos);
+                        }}
+                      />
+                    ))
+                ) : (
+                  <p className='text-base text-center'>
+                    No Todos Found. Please add some todos to see them here.
+                  </p>
+                )}
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        )}
       </div>
     </div>
   );
