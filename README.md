@@ -7,7 +7,7 @@ This project is a simple Todo List application built using **React.js** with **T
 - Add new todos
 - Delete todos
 - Mark todos as completed or not completed
-- Search todos by title or description
+- Search todos by title
 - Display todos in two sections: "Not Completed" and "Completed"
 
 ## Demo
