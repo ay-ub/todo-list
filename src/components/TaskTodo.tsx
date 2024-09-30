@@ -22,11 +22,19 @@ export default function TaskTodo({
 }) {
   return (
     <div className='flex items-center justify-between w-full p-3 rounded-md'>
-      <Checkbox
-        checked={todo.isCompleted}
-        onCheckedChange={() => handleUpdateToDo(todo.value)}
-      />
-      <p className='text-xl flex-1 px-3'>{todo.value}</p>
+      <div className=' flex items-center'>
+        <Checkbox
+          id={todo.value}
+          checked={todo.isCompleted}
+          onCheckedChange={() => handleUpdateToDo(todo.value)}
+        />
+        <label
+          htmlFor={todo.value}
+          className='text-xl flex-1 px-3 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
+        >
+          {todo.value}
+        </label>
+      </div>
       <div className='flex items-center gap-3'>
         <AlertDialog>
           <AlertDialogTrigger>
